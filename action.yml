@@ -44,6 +44,9 @@ inputs:
     description: 'How many keys to process at a time'
     required: false
     default: 32
+  pat:
+    description: 'Personal Access Token for accessing private repositories'
+    required: false
 
 runs:
   using: 'composite'
@@ -51,6 +54,7 @@ runs:
     - name: Check out Repo
       uses: actions/checkout@v3
       with:
+        token: ${{ inputs.pat || github.token }}
         ref: ${{ github.head_ref || github.ref }}
         fetch-depth: 0
 
